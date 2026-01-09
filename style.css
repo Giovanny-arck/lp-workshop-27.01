@@ -49,7 +49,7 @@ body {
   */
   background-image: 
     linear-gradient(180deg, rgba(45, 8, 53, 0.60) 0%, rgba(15, 2, 20, 0.80) 100%), 
-    url('img/Background_Super\ Aula.jpg'); /* <--- VERIFIQUE O NOME DO ARQUIVO AQUI */
+    url('img/back\ teste.jpeg'); /* <--- VERIFIQUE O NOME DO ARQUIVO AQUI */
     
   background-size: cover;
   background-position: center;
