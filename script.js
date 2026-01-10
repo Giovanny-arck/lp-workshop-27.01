@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Coloque aqui o seu link de checkout geral da Hotmart
     const LINK_DO_CHECKOUT = 'https://pay.hotmart.com/S103728920U?checkoutMode=10'; 
 
+    // --- FUNÇÃO PARA GERAR EVENT_ID ÚNICO ---
+    function generateEventId() {
+        const timestamp = Date.now();
+        const random = Math.floor(Math.random() * 1000000);
+        return `event-${timestamp}-${random}`;
+    }
+
     // --- 2. LÓGICA DE SCROLL (Mobile vs Desktop) ---
     const scrollButtons = document.querySelectorAll('.btn-scroll');
     const heroSection = document.querySelector('.hero-section');
@@ -69,7 +76,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const urlParams = new URLSearchParams(window.location.search);
 
+      // 1. GERA O ID ÚNICO PARA ESTA CONVERSÃO
+      const uniqueEventId = generateEventId();
+
       const formData = {
+        event_id: uniqueEventId, // Envia para o Webhook (Importante para o Server-Side)  
         nome: form.nome.value,
         email: form.email.value,
         whatsapp: iti.getNumber(), 
@@ -120,9 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
             console.warn('Erro RD Mkt', rdError);
         }
         
-        // Pixel
+        // --- DISPARO DO PIXEL COM O EVENT_ID ---
         if (typeof fbq === 'function') {
-          fbq('track', 'CompleteRegistration');
+          // O 4º parâmetro é onde vai o eventID
+          fbq('track', 'CompleteRegistration', {}, { eventID: uniqueEventId });
         }
         
         // --- REDIRECIONAMENTO (SÓ ACONTECE SE PASSAR PELAS VALIDAÇÕES ACIMA) ---
