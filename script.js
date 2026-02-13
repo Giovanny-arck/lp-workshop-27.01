@@ -131,12 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.warn('Erro RD Mkt', rdError);
         }
         
-        // --- DISPARO DO PIXEL COM O EVENT_ID ---
-        if (typeof fbq === 'function') {
-          // O 4º parâmetro é onde vai o eventID
-          fbq('track', 'CompleteRegistration', {}, { eventID: uniqueEventId });
-        }
-        
         // --- REDIRECIONAMENTO (SÓ ACONTECE SE PASSAR PELAS VALIDAÇÕES ACIMA) ---
         window.location.href = LINK_DO_CHECKOUT;
 
